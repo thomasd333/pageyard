@@ -3,6 +3,18 @@
 A very light PHP CMS: pages, categories, menus, blocks, media library, a clean Bootstrap template, optional user
 accounts on the site. SQLite by default, MySQL optional. No Composer, no frameworks.
 
+## Screenshots
+
+The administrator in dark mode (light mode is one click away). The site's look is up to you: the template is
+plain Bootstrap with a few settings and custom CSS.
+
+![Pages](docs/screenshots/pages.png)
+
+| | |
+|---|---|
+| ![Log in](docs/screenshots/login.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+| ![Editing a page](docs/screenshots/page-edit.png) | ![Media](docs/screenshots/media.png) |
+
 ## Requirements
 
 - PHP 8.3 or newer with `pdo_sqlite` (or `pdo_mysql`), `mbstring` and `fileinfo`.

@@ -16,7 +16,7 @@ if (PHP_SAPI !== 'cli') {
     exit;
 }
 
-const EXCLUDED = ['tests/', 'tools/', '.gitattributes', '.gitignore'];
+const EXCLUDED = ['tests/', 'tools/', 'docs/', '.github/', '.gitattributes', '.gitignore'];
 const REQUIRED = [
     '.htaccess', 'web.config', 'index.php', 'README.md', 'core/bootstrap.php', 'administrator/index.php', 'installation/index.php',
     'templates/site/index.php', 'language/en/meta.php', 'language/pl/meta.php', 'core/Database/migrations/0001_initial.php',
