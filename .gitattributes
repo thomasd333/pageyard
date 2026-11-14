@@ -1,0 +1,9 @@
+# Text files are stored and checked out with LF; binaries untouched.
+* text=auto eol=lf
+*.woff binary
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.webp binary
+*.avif binary

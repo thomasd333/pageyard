@@ -1,0 +1,151 @@
+/*
+ * Pageyard site template: plain Bootstrap 5.3. This file holds only what Bootstrap has no class for
+ * (hero heights, the sticky sidebar) and limits on content coming from the editor.
+ * Custom CSS (System > Template) is printed after this file; the py-* classes in the markup are
+ * there as hooks for it.
+ */
+
+.py-logo {
+    max-height: 2.5rem;
+    width: auto;
+}
+
+/* Content from the editor */
+.py-block-html > :last-child,
+.py-category-description > :last-child {
+    margin-bottom: 0;
+}
+.py-block-html img,
+.py-page img,
+.py-blog-intro img,
+.py-category-description img {
+    max-width: 100%;
+    height: auto;
+}
+.py-page-intro,
+.py-page-body,
+.py-blog-intro,
+.py-category-description {
+    overflow-wrap: break-word;
+}
+.py-page figure.image {
+    display: inline-block;
+    margin: 0 0 1rem;
+}
+.py-page figure.image figcaption {
+    font-size: .875em;
+    color: var(--bs-secondary-color);
+    text-align: center;
+}
+.py-page table:not([class]) {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+}
+.py-page table:not([class]) td,
+.py-page table:not([class]) th {
+    border: 1px solid var(--bs-border-color);
+    padding: .5rem;
+}
+
+@media (max-width: 991.98px) {
+    .py-top .navbar-nav,
+    .py-top .navbar-text {
+        margin: .25rem 0;
+    }
+}
+
+/* Hero block: heights chosen in the block's options */
+.py-hero-sm { min-height: 24rem; }
+.py-hero-md { min-height: 32rem; }
+.py-hero-lg { min-height: 75vh; }
+.py-hero-full { min-height: calc(100vh - 3.5rem); }
+
+/* Side menu layout: stays in view while the page scrolls (below lg it is an offcanvas) */
+.py-navbar-sticky {
+    --py-sticky-top: 4rem;
+}
+@media (min-width: 992px) {
+    .py-sidebar > .offcanvas-lg {
+        height: 100%;
+    }
+    .py-sidebar .offcanvas-body {
+        position: sticky;
+        top: var(--py-sticky-top, 0);
+        max-height: calc(100vh - var(--py-sticky-top, 0px));
+        overflow-y: auto;
+    }
+}
+
+/* Gallery: square thumbnails, also inside content (see .py-page img above) */
+.py-gallery img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Image viewer of the gallery (media/site/gallery.js) */
+.py-viewer {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem;
+    border: 0;
+    background: rgba(0, 0, 0, .92);
+    color: #fff;
+}
+.py-viewer[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.py-viewer::backdrop {
+    background: rgba(0, 0, 0, .6);
+}
+.py-viewer img {
+    max-width: 100%;
+    min-height: 0;
+    max-height: calc(100vh - 5rem);
+    object-fit: contain;
+}
+.py-viewer-caption {
+    margin-top: .5rem;
+    font-size: .875rem;
+    text-align: center;
+}
+.py-viewer-btn {
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 1;
+}
+.py-viewer-btn:hover,
+.py-viewer-btn:focus-visible {
+    background: rgba(255, 255, 255, .35);
+}
+.py-viewer-prev { left: 1rem; top: calc(50% - 1.5rem); }
+.py-viewer-next { right: 1rem; top: calc(50% - 1.5rem); }
+.py-viewer-close { right: 1rem; top: 1rem; }
+
+/* User block in the top bar: a thin chevron instead of Bootstrap's caret. */
+.py-block-user .dropdown-toggle::after {
+    width: .45em;
+    height: .45em;
+    margin-left: calc(.45em + 3px);
+    border: 0;
+    border-right: .12em solid;
+    border-bottom: .12em solid;
+    transform: rotate(45deg);
+    vertical-align: calc(.3em - 1px);
+}
+.py-block-user .dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(-135deg);
+    vertical-align: .05em;
+}

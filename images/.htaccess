@@ -1,0 +1,10 @@
+# Uploaded files are never executed as scripts.
+<FilesMatch "\.(php|php\d|phtml|phar|pl|py|cgi|sh|asp|aspx|shtml)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+Options -Indexes -ExecCGI

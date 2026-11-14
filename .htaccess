@@ -1,0 +1,22 @@
+# Pageyard
+
+Options -Indexes
+DirectoryIndex index.php
+
+# Keep these out of the web even if a folder's own .htaccess is ignored.
+<FilesMatch "^(configuration\.php|.*\.(sqlite|sqlite-wal|sqlite-shm|log|md))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Uncomment if the site lives in a subfolder and rewriting fails:
+    # RewriteBase /
+
+    # Everything that is not an existing file or folder goes to index.php.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>

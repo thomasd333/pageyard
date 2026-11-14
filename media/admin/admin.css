@@ -1,0 +1,362 @@
+/* Pageyard administrator: Atum-like layout on top of Bootstrap 5.3 */
+
+:root {
+    --py-hue: 214;
+    --py-chrome: hsl(var(--py-hue), 63%, 20%);          /* header + sidebar */
+    --py-chrome-dark: hsl(var(--py-hue), 63%, 15%);
+    --py-chrome-text: hsl(var(--py-hue), 30%, 88%);
+    --py-chrome-muted: hsl(var(--py-hue), 20%, 65%);
+    --py-chrome-hover: hsla(0, 0%, 100%, .08);
+    --py-chrome-active: hsla(0, 0%, 100%, .14);
+    --py-accent: hsl(var(--py-hue), 80%, 65%);
+    --py-body-bg: hsl(var(--py-hue), 45%, 96%);
+    --py-header-h: 3.5rem;
+    --py-sidebar-w: 15.5rem;
+    --py-sidebar-w-closed: 3.75rem;
+}
+
+[data-bs-theme="dark"] {
+    --py-chrome: hsl(var(--py-hue), 30%, 13%);
+    --py-chrome-dark: hsl(var(--py-hue), 30%, 9%);
+    --py-body-bg: hsl(var(--py-hue), 15%, 10%);
+}
+
+body.py-admin {
+    background: var(--py-body-bg);
+    min-height: 100vh;
+}
+
+/* ---------- Header ---------- */
+
+.py-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    height: var(--py-header-h);
+    padding: 0 .5rem 0 0;
+    background: var(--py-chrome);
+    color: var(--py-chrome-text);
+    flex-wrap: nowrap;
+    border-bottom: 1px solid var(--py-chrome-dark);
+}
+
+.py-brand {
+    display: flex;
+    align-items: center;
+    width: var(--py-sidebar-w);
+    flex-shrink: 0;
+    height: 100%;
+    background: var(--py-chrome-dark);
+    transition: width .2s ease;
+}
+
+.py-logo {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.15rem;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.py-logo .bi { color: var(--py-accent); font-size: 1.35rem; }
+.py-logo:hover { color: #fff; }
+
+.py-header-btn {
+    color: var(--py-chrome-text);
+    border: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    white-space: nowrap;
+}
+.py-header-btn:hover,
+.py-header-btn:focus-visible,
+.py-header-btn.show { color: #fff; background: var(--py-chrome-hover); }
+#py-sidebar-toggle { width: var(--py-sidebar-w-closed); justify-content: center; flex-shrink: 0; }
+
+.py-page-title {
+    flex: 1;
+    min-width: 0;
+    margin: 0 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.py-page-title .bi { margin-right: .6rem; color: var(--py-accent); }
+
+.py-header-end { display: flex; align-items: center; gap: .25rem; }
+
+/* ---------- Sidebar ---------- */
+
+.py-wrapper { display: flex; min-height: calc(100vh - var(--py-header-h)); }
+
+.py-sidebar {
+    position: sticky;
+    top: var(--py-header-h);
+    align-self: flex-start;
+    width: var(--py-sidebar-w);
+    height: calc(100vh - var(--py-header-h));
+    flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: .75rem 0;
+    background: var(--py-chrome);
+    transition: width .2s ease;
+}
+
+.py-sidebar-heading {
+    padding: 1rem 1.25rem .35rem;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--py-chrome-muted);
+    white-space: nowrap;
+}
+
+.py-sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: .6rem 1.25rem;
+    color: var(--py-chrome-text);
+    border-left: 3px solid transparent;
+    white-space: nowrap;
+}
+.py-sidebar .nav-link .bi { font-size: 1.1rem; width: 1.25rem; text-align: center; flex-shrink: 0; }
+.py-sidebar .nav-link:hover { color: #fff; background: var(--py-chrome-hover); }
+.py-sidebar .nav-link.active {
+    color: #fff;
+    background: var(--py-chrome-active);
+    border-left-color: var(--py-accent);
+}
+
+/* Collapsed: icons only */
+.py-sidebar-closed .py-sidebar,
+.py-sidebar-closed .py-brand { width: var(--py-sidebar-w-closed); }
+.py-sidebar-closed .py-logo span,
+.py-sidebar-closed .py-sidebar .nav-link span { display: none; }
+.py-sidebar-closed .py-sidebar-heading { padding: .5rem 0; }
+.py-sidebar-closed .py-sidebar-heading span { display: block; height: 1px; background: var(--py-chrome-hover); font-size: 0; margin: 0 .75rem; }
+.py-sidebar-closed .py-sidebar .nav-link { justify-content: center; padding-left: 0; padding-right: 0; }
+.py-sidebar-closed .py-logo { display: none; }
+
+.py-sidebar-backdrop { display: none; }
+
+/* Small screens: the sidebar slides over the content */
+@media (max-width: 991.98px) {
+    .py-brand { width: auto; background: transparent; }
+    .py-logo { display: none; }
+    .py-page-title { margin-left: .25rem; font-size: 1.1rem; }
+    .py-sidebar {
+        position: fixed;
+        left: 0;
+        z-index: 1040;
+        width: var(--py-sidebar-w);
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+    }
+    .py-sidebar-closed .py-sidebar { width: var(--py-sidebar-w); }
+    .py-sidebar-closed .py-sidebar .nav-link span { display: inline; }
+    .py-sidebar-closed .py-sidebar .nav-link { justify-content: flex-start; padding: .6rem 1.25rem; }
+    .py-sidebar-open .py-sidebar { transform: none; box-shadow: 0 0 2rem rgba(0, 0, 0, .3); }
+    .py-sidebar-open .py-sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: var(--py-header-h) 0 0 0;
+        z-index: 1035;
+        background: rgba(0, 0, 0, .4);
+    }
+}
+
+/* ---------- Main ---------- */
+
+.py-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.py-subhead {
+    position: sticky;
+    top: var(--py-header-h);
+    z-index: 1020;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: .65rem 1.5rem;
+    background: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+.py-subhead .btn { display: inline-flex; align-items: center; }
+
+.py-content { padding: 1.5rem; flex: 1; }
+@media (max-width: 575.98px) {
+    .py-content { padding: 1rem; }
+    .py-subhead { padding: .5rem 1rem; }
+}
+
+.py-card { border: 0; box-shadow: 0 1px 3px rgba(0, 0, 0, .08); }
+.py-card > .card-header {
+    background: transparent;
+    font-weight: 600;
+    padding: .85rem 1.25rem;
+}
+.py-card-tabbed { border-top-left-radius: 0; }
+
+.py-tabs { border-bottom: 0; }
+.py-tabs .nav-link { color: var(--bs-secondary-color); border: 0; }
+.py-tabs .nav-link.active { color: var(--bs-emphasis-color); background: var(--bs-body-bg); font-weight: 500; }
+
+/* Lists */
+.py-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.py-search { width: 22rem; max-width: 100%; }
+.py-list thead th { font-weight: 600; font-size: .875rem; white-space: nowrap; background: var(--bs-tertiary-bg); }
+.py-list .py-col-check { width: 2.5rem; padding-left: 1rem; }
+.py-sort { color: inherit; text-decoration: none; }
+.py-sort:hover { text-decoration: underline; }
+.py-sort .bi { font-size: .7rem; }
+.py-status { line-height: 1; }
+
+/* Content lists and forms */
+.py-thumb-xs { width: 2.5rem; height: 2.5rem; object-fit: cover; border-radius: .25rem; flex-shrink: 0; }
+.py-lang { font-size: .7rem; margin-right: .2rem; }
+.py-image-preview { border-radius: .375rem; overflow: hidden; background: var(--bs-tertiary-bg); }
+.py-image-preview img { display: block; width: 100%; max-height: 14rem; object-fit: contain; }
+.py-busy { opacity: .6; pointer-events: none; }
+.tox-tinymce { border-radius: var(--bs-border-radius) !important; }
+.form-control.is-invalid + .tox-tinymce { border-color: var(--bs-form-invalid-border-color) !important; }
+/* Fullscreen button pinned to the right of the toolbar (editor.js). The padding is on the overlord and doesn't
+   depend on a class added by JS, so TinyMCE already measures the narrower toolbar when it splits off the "..." items. */
+/* Room for the fullscreen button. The toolbar's element depends on toolbar_mode. */
+.tox .tox-editor-header.py-tox-header > .tox-toolbar,
+.tox .tox-editor-header.py-tox-header > .tox-toolbar-overlord { padding-right: 2.75rem; }
+.tox .tox-editor-header.py-tox-header { position: relative; }
+/* !important: the skin makes a focused button position: relative, which moved this one away under the pressed mouse. */
+.tox .tox-editor-header .py-tox-fullscreen { position: absolute !important; top: 11px; right: 4px; margin: 0; }
+
+/* Blocks, menus, template */
+.py-checklist { max-height: 16rem; overflow-y: auto; }
+.py-code {
+    font-family: var(--bs-font-monospace);
+    font-size: .85rem;
+    line-height: 1.5;
+    tab-size: 4;
+    white-space: pre;
+}
+.py-logo-preview img { max-height: 5rem; width: auto; margin: .5rem; }
+.py-layout-preview {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding: .6rem;
+    border-radius: .5rem;
+    background: var(--bs-tertiary-bg);
+    font-size: .75rem;
+    color: var(--bs-secondary-color);
+    text-align: center;
+}
+.py-layout-preview > div,
+.py-lp-middle > div {
+    border: 1px dashed var(--bs-border-color);
+    border-radius: .3rem;
+    background: var(--bs-body-bg);
+    padding: .5rem;
+}
+.py-layout-preview > .py-lp-middle {
+    display: flex;
+    gap: .4rem;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    min-height: 7rem;
+}
+.py-lp-side { flex: 0 0 25%; }
+.py-lp-content { flex: 1; display: flex; align-items: center; justify-content: center; }
+.py-lp-middle > [hidden] { display: none; }
+.py-layout-preview [hidden] { display: none; }
+
+/* Options of a switch that is off (data-enable-if) */
+.py-dependent:disabled { opacity: .55; }
+
+/* Dashboard quick icons */
+.py-quickicons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 1rem;
+}
+.py-quickicon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
+    padding: 1.25rem .75rem;
+    border-radius: .5rem;
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-emphasis-color);
+    text-decoration: none;
+    text-align: center;
+    transition: background .15s, transform .15s;
+}
+.py-quickicon .bi { font-size: 2rem; color: var(--py-chrome); }
+[data-bs-theme="dark"] .py-quickicon .bi { color: var(--py-accent); }
+.py-quickicon:hover { background: var(--bs-secondary-bg); transform: translateY(-2px); }
+.py-quickicon-count {
+    position: absolute;
+    top: .5rem;
+    right: .6rem;
+    min-width: 1.6rem;
+    padding: .1rem .45rem;
+    border-radius: 1rem;
+    background: var(--py-chrome);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+/* ---------- Login ---------- */
+
+body.py-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: radial-gradient(circle at 30% 20%, hsl(var(--py-hue), 55%, 30%), var(--py-chrome-dark) 70%);
+}
+.py-login-box { width: 100%; max-width: 24rem; }
+.py-login-brand {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+.py-login-brand .bi { font-size: 2.75rem; color: var(--py-accent); }
+.py-login-name { font-size: 1.6rem; font-weight: 600; line-height: 1.1; }
+.py-login-site { color: var(--py-chrome-muted); }
+.py-login-footer { margin-top: 1.25rem; text-align: center; }
+.py-login-footer a { color: var(--py-chrome-text); text-decoration: none; font-size: .9rem; }
+.py-login-footer a:hover { color: #fff; }
+
+/* History: previews of earlier versions */
+.py-revision-frame { display: block; width: 100%; min-height: 3rem; border: 1px solid var(--bs-border-color); border-radius: .375rem; background: #fff; }
+
+/* Media library */
+.py-dropzone { display: block; text-align: center; padding: 1.25rem; border: 2px dashed var(--bs-border-color); border-radius: .5rem;
+    background: var(--bs-body-bg); color: var(--bs-secondary-color); cursor: pointer; transition: border-color .15s, background .15s; }
+.py-dropzone:hover, .py-dropzone.py-dragover { border-color: var(--bs-primary); background: var(--bs-primary-bg-subtle); color: var(--bs-body-color); }
+.py-dropzone.py-busy { pointer-events: none; opacity: .7; }
+.py-media-thumb { display: block; width: 100%; padding: 0; border: 0; background: var(--bs-tertiary-bg)
+    repeating-conic-gradient(var(--bs-secondary-bg) 0 25%, transparent 0 50%) 0 0 / 16px 16px;
+    border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0; overflow: hidden; cursor: pointer; }
+.py-media-thumb img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
+.py-media-item:has(input:checked) { outline: 2px solid var(--bs-primary); }
+.py-media-picker .py-media-thumb:hover img, .py-media-picker .py-media-thumb:focus-visible img { opacity: .8; }
+.py-media-folders .list-group-item { font-size: .875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.py-bare { background: var(--bs-body-bg); }
+

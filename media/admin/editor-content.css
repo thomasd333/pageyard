@@ -1,0 +1,35 @@
+/* Inside the TinyMCE editor (on top of Bootstrap), so content looks close to the site. */
+body {
+    padding: .75rem 1rem;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+figure.image {
+    display: inline-block;
+    margin: 0 0 1rem;
+}
+figure.image figcaption {
+    font-size: .875em;
+    color: var(--bs-secondary-color);
+    text-align: center;
+}
+/* The "Read more" line of a page; never reaches the site. The label comes from editor.js. */
+hr.py-readmore {
+    margin: 1.75rem 0;
+    overflow: visible;
+    text-align: center;
+    border: 0;
+    border-top: 2px dashed var(--bs-primary);
+    opacity: 1;
+}
+hr.py-readmore::after {
+    position: relative;
+    top: -.8em;
+    padding: 0 .6em;
+    font-size: .8rem;
+    color: var(--bs-primary);
+    content: var(--py-readmore);
+    background: var(--bs-body-bg);
+}
